@@ -9,4 +9,8 @@
     <color name="color5">#A431FF</color>
     <color name="color6">#7F097A</color>
     <color name="color7">#CFC9FC</color>
+    <color name="green">#00FF00</color>
+    <color name="red">#FF0000</color>
+    <color name="color8">#743959FF</color>
+
 </resources>
