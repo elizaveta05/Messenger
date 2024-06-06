@@ -64,7 +64,8 @@ public class Registration extends AppCompatActivity {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private Dialog dialog;
     private EditText number1, number2, number3, number4, number5, number6;
-    private Button btn_registration, btn_back;
+    private Button btn_registration;
+    private ImageButton btn_back;
     private  String phoneNumber;
     private FirebaseUser user;
     private List<String> allLogins;

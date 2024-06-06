@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -42,7 +43,8 @@ public class Authorization extends AppCompatActivity {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private Dialog dialog;
     private EditText number1, number2, number3, number4, number5, number6;
-    private Button btn_registration, btn_back;
+    private Button btn_registration;
+    private ImageButton btn_back;
 
     private FirebaseUser user;
 
