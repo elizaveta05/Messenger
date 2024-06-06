@@ -1,6 +1,7 @@
 package com.example.messenger;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +12,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -25,6 +25,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
@@ -33,7 +35,10 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,6 +48,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class Registration extends AppCompatActivity {
@@ -58,8 +64,10 @@ public class Registration extends AppCompatActivity {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private Dialog dialog;
     private EditText number1, number2, number3, number4, number5, number6;
-    private Button btn_registration;
+    private Button btn_registration, btn_back;
     private  String phoneNumber;
+    private FirebaseUser user;
+    private List<String> allLogins;
     ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
             new ActivityResultCallback<Uri>() {
                 @Override
@@ -87,13 +95,27 @@ public class Registration extends AppCompatActivity {
         btn_autho = findViewById(R.id.btn_autho);
         new PhoneTextWatcher(et_phone);
         mAuth = FirebaseAuth.getInstance();
+
+        btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(v->{
+            Intent intent = new Intent(Registration.this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0); // Убрать анимацию перехода
+        });
+
         TextInputLayout textInputLayoutLogin = findViewById(R.id.textInputLayoutLogin);
         EditText et_login = textInputLayoutLogin.getEditText();
 
         if (et_login != null) {
+
+            /*et_login.setOnClickListener(v->{
+                allLogins = loadAllLoginsFromDatabase();
+            });*/
+
             et_login.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -138,7 +160,7 @@ public class Registration extends AppCompatActivity {
         countries.add("Индия");
         countries.add("Австралия");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, countries);
+        CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, countries);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(0);
@@ -154,10 +176,11 @@ public class Registration extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
             }
         });
-
         btn_autho.setOnClickListener(v -> {
             phoneNumber = "+" + (et_number.getText().toString() + et_phone.getText().toString().trim()).replaceAll("[^0-9]", "");
-            if (phoneNumber != null && phoneNumber.length() == 12 && isValidLogin(enteredLogin)) {
+            if (spinner.getSelectedItemPosition() == 0) {
+                Toast.makeText(Registration.this, "Выберите страну", Toast.LENGTH_SHORT).show();
+            } else if (phoneNumber != null && phoneNumber.length() == 12 && isValidLogin(enteredLogin)) {
                 dialog = new Dialog(this);
                 dialog.setContentView(R.layout.activity_code);
 
@@ -177,10 +200,9 @@ public class Registration extends AppCompatActivity {
                         mCallbacks
                 );
             } else {
-                Toast.makeText(Registration.this, "Ошибка!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Registration.this, "Ошибка! Проверьте введенные данные", Toast.LENGTH_SHORT).show();
             }
         });
-
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
@@ -249,7 +271,7 @@ public class Registration extends AppCompatActivity {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
+                        user = mAuth.getCurrentUser();
                         if (user != null) {
                             Toast.makeText(Registration.this, "Аутентификация успешна", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
@@ -295,14 +317,39 @@ public class Registration extends AppCompatActivity {
                 .document(user.getUid())
                 .set(userData)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(Registration.this, "Данные пользователя сохранены", Toast.LENGTH_SHORT).show();
-                    finish();
+                    Toast.makeText(Registration.this, "Данные пользователя успешно записаны", Toast.LENGTH_SHORT).show();
+                    // intent = new Intent(Registration.this, MainActivity.class);
+                  //  startActivity(intent);
+                   // overridePendingTransition(0, 0); // Убрать анимацию перехода
                 })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(Registration.this, "Ошибка сохранения данных пользователя", Toast.LENGTH_SHORT).show();
-                });
+                .addOnFailureListener(e -> Toast.makeText(Registration.this, "Ошибка записи данных пользователя: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+    }
+    private List<String> loadAllLoginsFromDatabase() {
+        List<String> loginList = new ArrayList<>();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference usersCollection = db.collection("Users");
+
+        Task<QuerySnapshot> queryTask = usersCollection.get();
+
+        try {
+            QuerySnapshot querySnapshot = Tasks.await(queryTask);
+            for (QueryDocumentSnapshot document : querySnapshot) {
+                if (document.contains("login")) {
+                    loginList.add(document.getString("login"));
+                }
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return loginList;
     }
     private boolean isValidLogin(String login) {
+        if (TextUtils.isEmpty(login)) {
+            return false;
+        }
+
         if (login.length() < 5) {
             return false;
         }
@@ -310,9 +357,15 @@ public class Registration extends AppCompatActivity {
         if (!login.matches("[a-zA-Z0-9_]+")) {
             return false;
         }
+
         if (login.contains(" ")) {
             return false;
         }
+
+        if (allLogins != null && allLogins.contains(login)) {
+            return false;
+        }
+
         return true;
     }
     private String getCountryCode(String country) {

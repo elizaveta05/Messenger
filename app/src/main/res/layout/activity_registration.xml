@@ -17,11 +17,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:scaleType="fitStart"
+            android:tint="@color/color3"
+            app:srcCompat="@drawable/icon_back" />
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="50dp"
+            android:paddingTop="20dp"
             android:paddingBottom="10dp"
             android:text="Регистрация"
             android:textAlignment="center"
@@ -109,9 +118,9 @@
                 android:ems="4"
                 android:fontFamily="sans-serif-medium"
                 android:hint="+8"
+                android:inputType="none"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:inputType="none"
                 android:textSize="16sp" />
 
             <EditText

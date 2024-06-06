@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:layout_width="350dp"
+    android:layout_width="300dp"
     android:layout_height="350dp"
-    android:background="@color/white"
-    tools:context=".Code">
+    android:background="@color/white">
 
     <View
         android:id="@+id/view"
@@ -17,107 +16,106 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/number1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="100dp"
-        android:layout_weight="1"
-        android:autoSizeMinTextSize="1dp"
-        android:background="@drawable/rounded_edittext_background"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="number"
-        android:textColor="@color/black"
-        android:textSize="16sp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/btn_registration"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintVertical_bias="0.472">
 
-    <EditText
-        android:id="@+id/number2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="100dp"
-        android:layout_weight="1"
-        android:autoSizeMinTextSize="1dp"
-        android:background="@drawable/rounded_edittext_background"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="number"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/number1"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        <EditText
+            android:id="@+id/number1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="2dp"
+            android:layout_weight="1"
+            android:autoSizeMinTextSize="1dp"
+            android:background="@drawable/rounded_edittext_background"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:maxLength="1" />
 
-    <EditText
-        android:id="@+id/number3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="100dp"
-        android:layout_weight="1"
-        android:autoSizeMinTextSize="1dp"
-        android:background="@drawable/rounded_edittext_background"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="number"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/number2"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        <EditText
+            android:id="@+id/number2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:autoSizeMinTextSize="1dp"
+            android:background="@drawable/rounded_edittext_background"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:maxLength="1" />
 
-    <EditText
-        android:id="@+id/number4"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="100dp"
-        android:layout_weight="1"
-        android:autoSizeMinTextSize="1dp"
-        android:background="@drawable/rounded_edittext_background"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="number"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/number3"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        <EditText
+            android:id="@+id/number3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:autoSizeMinTextSize="1dp"
+            android:background="@drawable/rounded_edittext_background"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:maxLength="1" />
 
-    <EditText
-        android:id="@+id/number5"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="100dp"
-        android:layout_weight="1"
-        android:autoSizeMinTextSize="1dp"
-        android:background="@drawable/rounded_edittext_background"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="number"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/number4"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        <EditText
+            android:id="@+id/number4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:autoSizeMinTextSize="1dp"
+            android:background="@drawable/rounded_edittext_background"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:maxLength="1" />
 
-    <EditText
-        android:id="@+id/number6"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="100dp"
-        android:layout_weight="1"
-        android:autoSizeMinTextSize="1dp"
-        android:background="@drawable/rounded_edittext_background"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="number"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/number5"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        <EditText
+            android:id="@+id/number5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:autoSizeMinTextSize="1dp"
+            android:background="@drawable/rounded_edittext_background"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:maxLength="1" />
+
+        <EditText
+            android:id="@+id/number6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:autoSizeMinTextSize="1dp"
+            android:background="@drawable/rounded_edittext_background"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:maxLength="1" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_registration"

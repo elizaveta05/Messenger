@@ -18,11 +18,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:scaleType="fitStart"
+            android:tint="@color/color3"
+            app:srcCompat="@drawable/icon_back" />
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="200dp"
+            android:paddingTop="100dp"
             android:paddingBottom="10dp"
             android:text="Авторизация"
             android:textAlignment="center"
@@ -32,7 +41,7 @@
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -41,13 +50,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:paddingRight="10dp"
                 android:scaleType="fitStart"
                 app:srcCompat="@drawable/icon_country" />
 
             <Spinner
                 android:id="@+id/spinner"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/color4"
                 android:dropDownWidth="wrap_content"
@@ -59,7 +67,9 @@
                 android:paddingBottom="20dp"
                 android:popupElevation="18dp"
                 android:spinnerMode="dropdown"
-                android:textAlignment="viewStart" />
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/black" />
+
         </LinearLayout>
 
         <TextView
