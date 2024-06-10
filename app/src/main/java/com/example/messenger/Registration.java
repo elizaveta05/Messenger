@@ -89,7 +89,7 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         spinner = findViewById(R.id.spinner);
-        photoImageView = findViewById(R.id.image_photo);
+        photoImageView = findViewById(R.id.image_photo_user);
         addPhotoButton = findViewById(R.id.btn_add_photo);
         et_number = findViewById(R.id.et_number);
         et_phone = findViewById(R.id.et_phone);

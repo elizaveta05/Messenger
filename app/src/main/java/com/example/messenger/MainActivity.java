@@ -10,9 +10,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
 
     Button btn_authorization, btn_registration;
+    private FirebaseUser currentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,5 +40,12 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, Registration.class);
             startActivity(intent);
         });
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser != null){
+            Intent intent = new Intent (MainActivity.this, Profile.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+        }
     }
 }

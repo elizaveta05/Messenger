@@ -38,7 +38,7 @@
             app:srcCompat="@drawable/icon_menu" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_photo"
+            android:id="@+id/image_photo_user"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
@@ -66,18 +66,25 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_login"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:backgroundTint="@color/color9"
-            android:inputType="text"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_login"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textView8"
@@ -101,13 +108,12 @@
             android:backgroundTint="@color/color9"
             android:inputType="text"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:gravity="center|start|right"
             android:orientation="horizontal">
 
             <ImageButton
@@ -116,6 +122,7 @@
                 android:layout_height="60dp"
                 android:backgroundTint="@color/white"
                 android:scaleType="centerCrop"
+                android:visibility="invisible"
                 app:srcCompat="@drawable/icon_change_two" />
 
             <ImageButton
@@ -160,10 +167,10 @@
 
     <ImageButton
         android:id="@+id/btn_chat"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="5dp"
         android:background="#009D34FF"
         android:scaleType="centerInside"
@@ -171,13 +178,13 @@
         app:layout_constraintBottom_toBottomOf="@+id/view3"
         app:layout_constraintStart_toStartOf="@+id/view3"
         app:layout_constraintTop_toTopOf="@+id/view3"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.615"
         app:srcCompat="@drawable/icon_chat" />
 
     <ImageButton
         android:id="@+id/btn_profile"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="5dp"

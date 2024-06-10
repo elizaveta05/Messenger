@@ -26,11 +26,11 @@
         android:theme="@style/Theme.Messenger"
         tools:targetApi="31">
         <activity
-            android:name=".Profile"
+            android:name=".Chats"
             android:exported="false" />
         <activity
-            android:name=".Code"
-            android:exported="true" />
+            android:name=".Profile"
+            android:exported="false" />
         <activity
             android:name=".Registration"
             android:exported="false" />

@@ -138,6 +138,7 @@
             android:insetBottom="20dp"
             android:paddingLeft="20dp"
             android:text="Получить код"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
     </LinearLayout>

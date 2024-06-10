@@ -33,6 +33,7 @@ android {
 }
 
 dependencies {
+    implementation (libs.picasso)
     implementation (libs.circleimageview)
     implementation(libs.appcompat)
     implementation(libs.material)

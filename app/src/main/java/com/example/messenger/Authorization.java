@@ -220,9 +220,9 @@ public class Authorization extends AppCompatActivity {
                         if (user != null) {
                             Toast.makeText(Authorization.this, "Аутентификация успешна", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
-                            // intent = new Intent(Registration.this, MainActivity.class);
-                            //  startActivity(intent);
-                            // overridePendingTransition(0, 0); // Убрать анимацию перехода
+                            Intent intent = new Intent(Authorization.this, Profile.class);
+                            startActivity(intent);
+                            overridePendingTransition(0, 0); // Убрать анимацию перехода
                         } else {
                             Toast.makeText(this, "Не удалось получить информацию о текущем пользователе", Toast.LENGTH_SHORT).show();
                         }
