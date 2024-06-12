@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Chats">
+    tools:context=".add_chats">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -17,23 +17,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingBottom="20dp">
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
+            android:text="Создать чат"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="20dp"
-                android:text="Чаты"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableLeft="@drawable/icon_search"
+            android:drawablePadding="5dp"
+            android:background="@drawable/edittext_bg"
+            android:textSize="16sp"
+            android:textCursorDrawable="@null"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:hint="Поиск по имени..."
+            android:id="@+id/search_users"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/allContacts"
@@ -44,7 +52,6 @@
             app:layout_constraintStart_toStartOf="parent" />
 
     </LinearLayout>
-
     <View
         android:id="@+id/view3"
         android:layout_width="0dp"
