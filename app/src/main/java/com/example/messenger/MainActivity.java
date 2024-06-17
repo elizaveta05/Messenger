@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent (MainActivity.this, Profile.class);
+            Intent intent = new Intent (MainActivity.this, Chats.class);
             startActivity(intent);
             overridePendingTransition(0, 0);
         }

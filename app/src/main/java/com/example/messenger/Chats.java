@@ -34,7 +34,9 @@ public class Chats extends AppCompatActivity {
 
         btn_add = findViewById(R.id.btn_add);
         btn_add.setOnClickListener(v->{
-
+            Intent intent = new Intent(Chats.this, add_chats.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0); // Убрать анимацию перехода
         });
     }
 }

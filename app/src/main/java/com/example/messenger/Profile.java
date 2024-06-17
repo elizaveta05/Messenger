@@ -215,11 +215,10 @@ public class Profile extends AppCompatActivity {
         });
         btn_chat = findViewById(R.id.btn_chat);
         btn_chat.setOnClickListener(v->{
-            /*
-            Intent intent = new Intent(Profile.this, class);
+            Intent intent = new Intent(Profile.this, Chats.class);
             startActivity(intent);
             overridePendingTransition(0, 0);
-            */
+
         });
         btn_add = findViewById(R.id.btn_add);
         image_photo = findViewById(R.id.image_photo_user);

@@ -319,9 +319,9 @@ public class Registration extends AppCompatActivity {
                 .set(userData)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(Registration.this, "Данные пользователя успешно записаны", Toast.LENGTH_SHORT).show();
-                    // intent = new Intent(Registration.this, MainActivity.class);
-                  //  startActivity(intent);
-                   // overridePendingTransition(0, 0); // Убрать анимацию перехода
+                    Intent intent = new Intent(Registration.this, Chats.class);
+                    startActivity(intent);
+                     overridePendingTransition(0, 0); // Убрать анимацию перехода
                 })
                 .addOnFailureListener(e -> Toast.makeText(Registration.this, "Ошибка записи данных пользователя: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
