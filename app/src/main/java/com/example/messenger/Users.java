@@ -11,6 +11,9 @@ public class Users implements Parcelable {
     private String phoneNumber;
     private String photoUrl;
 
+    public Users() {
+    }
+
     public Users(String userId, String login, String phoneNumber, String photoUrl) {
         this.userId = userId;
         this.login = login;
@@ -85,5 +88,4 @@ public class Users implements Parcelable {
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
     }
-
 }

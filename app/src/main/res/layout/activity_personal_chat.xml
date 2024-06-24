@@ -50,16 +50,19 @@
         android:text="Наименование контакта"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/view4"
         app:layout_constraintEnd_toStartOf="@+id/btn_function_list"
+        app:layout_constraintHorizontal_bias="0.923"
         app:layout_constraintStart_toEndOf="@+id/btn_back"
-        app:layout_constraintTop_toTopOf="@+id/view4" />
+        app:layout_constraintTop_toTopOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.509" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="1dp"
@@ -120,7 +123,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/view5"
         app:layout_constraintEnd_toStartOf="@+id/btn_send"
-        app:layout_constraintStart_toEndOf="@+id/imageButton2"
+        app:layout_constraintStart_toEndOf="@+id/btn_add_media"
         app:layout_constraintTop_toTopOf="@+id/view5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
