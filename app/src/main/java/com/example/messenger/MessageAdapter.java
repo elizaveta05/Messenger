@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
@@ -50,19 +50,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         holder.tvMessage.setText(message.getContent());
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        holder.tvTime.setText(message.getTimestamp().format(formatter));
-
-        // Установка статуса сообщения
-        if (message.getSenderId().equals(currentUserId)) {
-            // Это отправленное сообщение
-            holder.tvStatus.setText("Delivered");
-        } else {
-            // Это полученное сообщение
-            holder.tvStatus.setText("Received");
-        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        holder.tvTime.setText(dateFormat.format(message.getTimestamp()));
     }
-
 
     @Override
     public int getItemCount() {
@@ -73,14 +63,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         TextView tvMessage;
         TextView tvTime;
-        TextView tvStatus;
 
         public MessageViewHolder(View itemView) {
             super(itemView);
 
             tvMessage = itemView.findViewById(R.id.tv_message);
             tvTime = itemView.findViewById(R.id.tv_time);
-            tvStatus = itemView.findViewById(R.id.tv_send);
+
+
         }
     }
 }

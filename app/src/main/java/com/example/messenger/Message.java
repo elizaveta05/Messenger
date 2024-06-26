@@ -1,20 +1,19 @@
 package com.example.messenger;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public class Message {
     private String content;
     private String senderId;
     private String receiverId;
-    private LocalDateTime timestamp;
-    private boolean status;
+    private Instant timestamp;
 
-    public Message(String content, String senderId, String receiverId, LocalDateTime timestamp) {
+
+    public Message(String content, String senderId, String receiverId, Instant timestamp) {
         this.content = content;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.timestamp = timestamp;
-        this.status = false;
     }
 
     public Message() {
@@ -45,19 +44,12 @@ public class Message {
         this.receiverId = receiverId;
     }
 
-    public LocalDateTime getTimestamp() {
+    public Instant getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
 }

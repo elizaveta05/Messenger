@@ -2,6 +2,7 @@ package com.example.messenger;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -35,6 +36,7 @@ public class PersonalChat extends AppCompatActivity {
     private MessageAdapter messageAdapter;
     private List<Message> messageList;
     private FirebaseUser currentUser;
+    private String senderId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,10 @@ public class PersonalChat extends AppCompatActivity {
             return insets;
         });
 
+        // Получить текущего пользователя из Firebase
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        senderId= currentUser.getUid().toString();
         selectedUser = getIntent().getParcelableExtra("selectedUser");
         etMessage = findViewById(R.id.et_messege);
         recyclerView = findViewById(R.id.recycler_view);
@@ -64,7 +68,10 @@ public class PersonalChat extends AppCompatActivity {
 
         ImageButton btn_back = findViewById(R.id.btn_back);
         btn_back.setOnClickListener(v -> {
-
+            Intent intent = new Intent(PersonalChat.this, Chats.class);
+            startActivity(intent);
+            // Убрать анимацию перехода
+            overridePendingTransition(0, 0);
         });
 
         ImageButton btnSend = findViewById(R.id.btn_send);
@@ -75,20 +82,25 @@ public class PersonalChat extends AppCompatActivity {
                 etMessage.setText(""); // Очищаем поле ввода после отправки
             }
         });
-
-        connectWebSocket();
+        if (senderId != null) {
+            connectWebSocket(senderId, selectedUser.getUserId());
+        }
     }
     // Метод для установки соединения по WebSocket
-    private void connectWebSocket() {
+    private void connectWebSocket(String senderId, String recipientId) {
         RetrofitService retrofitService = new RetrofitService();
         Api api = retrofitService.getRetrofit().create(Api.class);
-        api.getAllMessage(currentUser.getUid(), selectedUser.getUserId()).enqueue(new Callback<List<Message>>() {
+        api.getAllMessage(senderId, recipientId).enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                 if (response.isSuccessful()) {
-                    messageList.clear();
-                    messageList.addAll(response.body());
-                    messageAdapter.notifyDataSetChanged();
+                    Log.i(TAG, "Request successful");
+                    List<Message> messages = response.body();
+                    if (messages != null) {
+                        setupRecyclerView(messages);
+                    } else {
+                        Log.e(TAG, "Received null message list from server");
+                    }
                 } else {
                     Log.e(TAG, "Request failed: " + response.message());
                 }
@@ -100,6 +112,22 @@ public class PersonalChat extends AppCompatActivity {
             }
         });
     }
+
+    private void setupRecyclerView(List<Message> messages) {
+        messageList.clear();
+        messageList.addAll(messages);
+
+        if (messageAdapter == null) {
+            messageAdapter = new MessageAdapter(messageList, currentUser.getUid());
+            recyclerView.setAdapter(messageAdapter);
+        } else {
+            messageAdapter.notifyDataSetChanged();
+        }
+
+        if (messageList.size() > 0) {
+            recyclerView.smoothScrollToPosition(messageList.size() - 1);
+        }
+    }
     private void sendMessageToServer(String message, String recipientId) {
         // Создание экземпляра RetrofitService
         RetrofitService retrofitService = new RetrofitService();
@@ -109,22 +137,18 @@ public class PersonalChat extends AppCompatActivity {
         api.sendMessage(currentUser.getUid(), recipientId, message).enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                // Обработка успешного ответа от сервера и наличия данных в теле ответа
                 if (response.isSuccessful() && response.body() != null) {
-                    // Получение отправленного сообщения из ответа сервера (предполагая, что сервер возвращает отправленное сообщение)
-                    Message sentMessage = response.body().get(0);
-                    // Добавление отправленного сообщения в messageList
-                    messageList.add(sentMessage);
-                    // Уведомление адаптера о добавлении нового сообщения
-                    messageAdapter.notifyItemInserted(messageList.size() - 1);
-                    // Плавная прокрутка к новому сообщению в RecyclerView
-                    recyclerView.smoothScrollToPosition(messageList.size() - 1);
+                    messageList.clear();
+                    messageList.addAll(response.body());
+
+                    recyclerView.post(() -> {
+                        messageAdapter.notifyDataSetChanged();
+                        recyclerView.smoothScrollToPosition(messageList.size() - 1);
+                    });
                 } else {
-                    // Логирование сообщения об ошибке в случае неуспешного ответа от сервера
-                    Log.e(TAG, "Не удалось выполнить запрос: " + response.message());
+                    Log.e(TAG, "Запрос не удался: " + response.message());
                 }
             }
-
             @Override
             public void onFailure(Call<List<Message>> call, Throwable throwable) {
                 // Логирование сообщения об ошибке в случае сбоя запроса

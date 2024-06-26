@@ -37,11 +37,13 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         Chat chat = chatList.get(position);
 
-        holder.userName.setText(chat.getUserId());
+        holder.userName.setText(chat.getUserLogin());
 
-        if (chat.getUserImageResId() != null) {
+        holder.userMessage.setText(chat.getLastMessage());
+
+        if (chat.getUserImage() != null) {
             Picasso.get()
-                    .load(chat.getUserImageResId())
+                    .load(chat.getUserImage())
                     .placeholder(R.drawable.icon_user)
                     .error(R.drawable.icon_user)
                     .into(holder.userImage);
@@ -62,13 +64,14 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView userName;
+        TextView userName, userMessage;
         CircleImageView userImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
             userName = itemView.findViewById(R.id.tv_name_user);
             userImage = itemView.findViewById(R.id.image_photo_user);
+            userMessage = itemView.findViewById(R.id.tv_message);
         }
     }
 
